@@ -17,7 +17,7 @@ AddReference("QuantConnect.Algorithm.Framework")
 
 from QuantConnect import Resolution
 from QuantConnect.Algorithm.Framework.Alphas import *
-from EqualWeightingPortfolioConstructionModel import EqualWeightingPortfolioConstructionModel
+from .EqualWeightingPortfolioConstructionModel import EqualWeightingPortfolioConstructionModel
 
 class InsightWeightingPortfolioConstructionModel(EqualWeightingPortfolioConstructionModel):
     '''Provides an implementation of IPortfolioConstructionModel that generates percent targets based on the
