@@ -168,86 +168,86 @@ namespace QuantConnect.Logging
             var result = new StringBuilder();
 
             // Protect the method against endless recursion
-            if (recursion < 5)
-            {
-                // Determine object type
-                var t = obj.GetType();
+            //if (recursion < 5)
+            //{
+            //    // Determine object type
+            //    var t = obj.GetType();
 
-                // Get array with properties for this object
-                var properties = t.GetProperties();
+            //    // Get array with properties for this object
+            //    var properties = t.GetProperties();
 
-                foreach (var property in properties)
-                {
-                    try
-                    {
-                        // Get the property value
-                        var value = property.GetValue(obj, null);
+            //    foreach (var property in properties)
+            //    {
+            //        try
+            //        {
+            //            // Get the property value
+            //            var value = property.GetValue(obj, null);
 
-                        // Create indenting string to put in front of properties of a deeper level
-                        // We'll need this when we display the property name and value
-                        var indent = String.Empty;
-                        var spaces = "|   ";
-                        var trail = "|...";
+            //            // Create indenting string to put in front of properties of a deeper level
+            //            // We'll need this when we display the property name and value
+            //            var indent = String.Empty;
+            //            var spaces = "|   ";
+            //            var trail = "|...";
 
-                        if (recursion > 0)
-                        {
-                            indent = new StringBuilder(trail).Insert(0, spaces, recursion - 1).ToString();
-                        }
+            //            if (recursion > 0)
+            //            {
+            //                indent = new StringBuilder(trail).Insert(0, spaces, recursion - 1).ToString();
+            //            }
 
-                        if (value != null)
-                        {
-                            // If the value is a string, add quotation marks
-                            var displayValue = value.ToString();
-                            if (value is string) displayValue = String.Concat('"', displayValue, '"');
+            //            if (value != null)
+            //            {
+            //                // If the value is a string, add quotation marks
+            //                var displayValue = value.ToString();
+            //                if (value is string) displayValue = String.Concat('"', displayValue, '"');
 
-                            // Add property name and value to return string
-                            result.AppendFormat("{0}{1} = {2}\n", indent, property.Name, displayValue);
+            //                // Add property name and value to return string
+            //                result.AppendFormat("{0}{1} = {2}\n", indent, property.Name, displayValue);
 
-                            try
-                            {
-                                if (!(value is ICollection))
-                                {
-                                    // Call var_dump() again to list child properties
-                                    // This throws an exception if the current property value
-                                    // is of an unsupported type (eg. it has not properties)
-                                    result.Append(VarDump(value, recursion + 1));
-                                }
-                                else
-                                {
-                                    // 2009-07-29: added support for collections
-                                    // The value is a collection (eg. it's an arraylist or generic list)
-                                    // so loop through its elements and dump their properties
-                                    var elementCount = 0;
-                                    foreach (var element in ((ICollection)value))
-                                    {
-                                        var elementName = $"{property.Name}[{elementCount}]";
-                                        indent = new StringBuilder(trail).Insert(0, spaces, recursion).ToString();
+            //                try
+            //                {
+            //                    if (!(value is ICollection))
+            //                    {
+            //                        // Call var_dump() again to list child properties
+            //                        // This throws an exception if the current property value
+            //                        // is of an unsupported type (eg. it has not properties)
+            //                        //result.Append(VarDump(value, recursion + 1));
+            //                    }
+            //                    else
+            //                    {
+            //                        // 2009-07-29: added support for collections
+            //                        // The value is a collection (eg. it's an arraylist or generic list)
+            //                        // so loop through its elements and dump their properties
+            //                        var elementCount = 0;
+            //                        foreach (var element in ((ICollection)value))
+            //                        {
+            //                            var elementName = $"{property.Name}[{elementCount}]";
+            //                            indent = new StringBuilder(trail).Insert(0, spaces, recursion).ToString();
 
-                                        // Display the collection element name and type
-                                        result.AppendFormat("{0}{1} = {2}\n", indent, elementName, element.ToString());
+            //                            // Display the collection element name and type
+            //                            result.AppendFormat("{0}{1} = {2}\n", indent, elementName, element.ToString());
 
-                                        // Display the child properties
-                                        result.Append(VarDump(element, recursion + 2));
-                                        elementCount++;
-                                    }
+            //                            // Display the child properties
+            //                            //result.Append(VarDump(element, recursion + 2));
+            //                            elementCount++;
+            //                        }
 
-                                    result.Append(VarDump(value, recursion + 1));
-                                }
-                            } catch { }
-                        }
-                        else
-                        {
-                            // Add empty (null) property to return string
-                            result.AppendFormat("{0}{1} = {2}\n", indent, property.Name, "null");
-                        }
-                    }
-                    catch
-                    {
-                        // Some properties will throw an exception on property.GetValue()
-                        // I don't know exactly why this happens, so for now i will ignore them...
-                    }
-                }
-            }
+            //                        result.Append(VarDump(value, recursion + 1));
+            //                    }
+            //                } catch { }
+            //            }
+            //            else
+            //            {
+            //                // Add empty (null) property to return string
+            //                result.AppendFormat("{0}{1} = {2}\n", indent, property.Name, "null");
+            //            }
+            //        }
+            //        catch
+            //        {
+            //            // Some properties will throw an exception on property.GetValue()
+            //            // I don't know exactly why this happens, so for now i will ignore them...
+            //        }
+            //    }
+            //}
 
             return result.ToString();
         }

@@ -41,7 +41,7 @@ namespace QuantConnect.Configuration
         {
             if (File.Exists(fileName))
             {
-                Log.Trace(Invariant($"Using {fileName} as configuration file"));
+                Log.Trace(System.FormattableString.Invariant($"Using {fileName} as configuration file"));
                 ConfigurationFileName = fileName;
             }
             else

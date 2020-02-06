@@ -17,6 +17,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Threading;
+using QuantConnect.Algorithm.CSharp.HHLifeTrading.Implementations;
 using QuantConnect.Configuration;
 using QuantConnect.Lean.Engine;
 using QuantConnect.Logging;
@@ -47,7 +48,7 @@ namespace QuantConnect.Lean.Launcher
             #if DEBUG
                 mode = "DEBUG";
             #endif
-
+          
             if (OS.IsWindows)
             {
                 Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -122,12 +123,17 @@ namespace QuantConnect.Lean.Launcher
 
             try
             {
+
+
                 var algorithmManager = new AlgorithmManager(liveMode, job);
 
                 leanEngineSystemHandlers.LeanManager.Initialize(leanEngineSystemHandlers, leanEngineAlgorithmHandlers, job, algorithmManager);
 
                 var engine = new Engine.Engine(leanEngineSystemHandlers, leanEngineAlgorithmHandlers, liveMode);
+
+               
                 engine.Run(job, algorithmManager, assemblyPath, WorkerThread.Instance);
+
             }
             finally
             {
